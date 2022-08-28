@@ -12,25 +12,23 @@ import { useState } from "react";
 
 export default function Item(props) {
     const [stockInicial, setStockInicial] = useState(props.stock);
-    const [habilitarBoton, setHabilitarBoton] = useState(false);
-    const [nombreBoton, setNombreBoton] = useState("COMPRAR");
+    const habilitarBoton = !stockInicial > 0;
+    const nombreBoton = stockInicial > 0 ? "COMPRAR" : "SIN STOCK";
+    const stock = stockInicial > 0 ? stockInicial : "agotado";
 
     function comprarStock() {
         if (stockInicial >= 1) {
             props.onComprar();
             setStockInicial(stockInicial - 1);
-            if (stockInicial - 1 === 0) {
-                setStockInicial("agotado");
-                setHabilitarBoton(true);
-                setNombreBoton("SIN STOCK");
-            }
         }
     }
     return (
-        <div className="producto">
+        <div
+            className={`producto ${stockInicial > 0 ? "producto--stock" : ""}`}
+        >
             <h3>{props.nombre}</h3> <p>{props.descripcion}</p>
             <h5>
-                En stock: <span>{stockInicial}</span>
+                En stock: <span>{stock}</span>
             </h5>
             <button disabled={habilitarBoton} onClick={comprarStock}>
                 {nombreBoton}

@@ -63,3 +63,9 @@ header p span {
     padding: 5px;
     text-transform: uppercase;
 }
+
+.producto--stock h5 span {
+    color: black;
+    background-color: white;
+    font-weight: bold;
+}
